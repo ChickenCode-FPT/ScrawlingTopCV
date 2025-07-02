@@ -473,7 +473,7 @@ namespace Microservices
 
                 await ScrapeSingleUrlAsync(browser, urlToScrape);
 
-                LogMessage($"[Profile {profileId}] Scraping completed for URL: {urlToScrape}");
+                LogMessage($"[Profile {profileId}] Scraping completed for UR: {urlToScrape}");
             }
             catch (Exception ex)
             {
