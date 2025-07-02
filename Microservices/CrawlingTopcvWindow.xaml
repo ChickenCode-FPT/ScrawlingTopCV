@@ -1,11 +1,11 @@
-﻿<Window x:Class="Microservices.MainWindow"
+﻿<Window x:Class="Microservices.CrawlingTopcvWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Microservices"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="CrawlingTopcvWindow" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -22,12 +22,12 @@
         <TextBox x:Name="ProfileIdTextBox" Grid.Row="0" Grid.Column="1" Text="4" Width="100" HorizontalAlignment="Left" Margin="5"/>
         <Label Grid.Column="1" Content="URLs to Crawl:" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="123,2,0,0" Grid.RowSpan="2"/>
         <Button x:Name="StartScrapingButton" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="Start Scraping" Margin="0,10,0,0"
-                Click="StartScrapingButton_Click" Padding="10,5"/>
+        Click="StartScrapingButton_Click" Padding="10,5"/>
 
 
         <Label Grid.Row="2" Grid.Column="0" Content="Log:" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,10,0,0"/>
         <TextBox x:Name="LogTextBox" Grid.Row="2" Grid.Column="1" IsReadOnly="True" VerticalScrollBarVisibility="Auto"
-                 TextWrapping="Wrap" Margin="5" Padding="5"/>
+         TextWrapping="Wrap" Margin="5" Padding="5"/>
 
         <StatusBar Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,10,0,0">
             <StatusBarItem>
@@ -42,6 +42,6 @@
                 </LinearGradientBrush>
             </ComboBox.Background>
         </ComboBox>
-        <Button Grid.Column="1" Content="TopCV" HorizontalAlignment="Left" Margin="585,10,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="78" Click="Button_Click"/>
+        <Button Grid.Column="1" Content="ViecLam24h" HorizontalAlignment="Left" Margin="585,10,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="78" Click="Button_Click"/>
     </Grid>
 </Window>

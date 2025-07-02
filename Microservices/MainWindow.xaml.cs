@@ -23,11 +23,11 @@ namespace Microservices
         private readonly HttpClient _httpClient;
         //private Browser? _browser;
         private List<IBrowser> _openedBrowsers = new List<IBrowser>();
-        private string UrlToStartCrawl1 = "https://www.topcv.vn/viec-lam-it?page=3";
-        //private string UrlToStartCrawl2 = "https://www.topcv.vn/viec-lam-it?page=4";
-        //private string UrlToStartCrawl3 = "https://www.topcv.vn/viec-lam-it?page=5";
-        //private string UrlToStartCrawl4 = "https://vieclam24h.vn/viec-lam-it-phan-cung-mang-o7.html?occupation_ids%5B%5D=7&page=8&sort_q=priority_max%2Cdesc";
-        //private string UrlToStartCrawl5 = "https://vieclam24h.vn/viec-lam-it-phan-cung-mang-o7.html?occupation_ids%5B%5D=7&page=9&sort_q=priority_max%2Cdesc";
+        private string UrlToStartCrawl1 = "https://vieclam24h.vn/viec-lam-ke-toan-o17.html?occupation_ids%5B%5D=17&page=1&sort_q=priority_max%2Cdesc";
+       private string UrlToStartCrawl2 = "https://vieclam24h.vn/viec-lam-ke-toan-o17.html?occupation_ids%5B%5D=17&page=2&sort_q=priority_max%2Cdesc";
+       private string UrlToStartCrawl3 = "https://vieclam24h.vn/viec-lam-ke-toan-o17.html?occupation_ids%5B%5D=17&page=3&sort_q=priority_max%2Cdesc";
+       private string UrlToStartCrawl4 = "https://vieclam24h.vn/viec-lam-ke-toan-o17.html?occupation_ids%5B%5D=17&page=4&sort_q=priority_max%2Cdesc";
+        private string UrlToStartCrawl5 = "https://vieclam24h.vn/viec-lam-ke-toan-o17.html?occupation_ids%5B%5D=17&page=5&sort_q=priority_max%2Cdesc";
         public MainWindow()
         {
             InitializeComponent();
@@ -36,10 +36,10 @@ namespace Microservices
             //CBlistScrap.Items.Add("https://www.topcv.vn/viec-lam-it");
             //CBlistScrap.Items.Add(UrlToStartCrawl);
             CBlistScrap.Items.Add(UrlToStartCrawl1);
-            //CBlistScrap.Items.Add(UrlToStartCrawl2);
-            //CBlistScrap.Items.Add(UrlToStartCrawl3);
-            //CBlistScrap.Items.Add(UrlToStartCrawl4);
-            //CBlistScrap.Items.Add(UrlToStartCrawl5);
+            CBlistScrap.Items.Add(UrlToStartCrawl2);
+            CBlistScrap.Items.Add(UrlToStartCrawl3);
+            CBlistScrap.Items.Add(UrlToStartCrawl4);
+            CBlistScrap.Items.Add(UrlToStartCrawl5);
         }
 
         private async void StartScrapingButton_Click(object sender, RoutedEventArgs e)
@@ -85,10 +85,10 @@ namespace Microservices
                     var urlsToScrape = new List<string>
                     {
                           UrlToStartCrawl1,
-                          //UrlToStartCrawl2,
-                          //UrlToStartCrawl3,
-                          //UrlToStartCrawl4,
-                          //UrlToStartCrawl5
+                          UrlToStartCrawl2,
+                          UrlToStartCrawl3,
+                          UrlToStartCrawl4,
+                          UrlToStartCrawl5
                      };
 
                 int maxConcurrentProfiles = 5; 
@@ -489,178 +489,6 @@ namespace Microservices
         {
 
             //Go to Page ang crawl link details
-            //using (var page = await browserInstance.NewPageAsync())
-            //{
-            //    LogMessage("Navigating to TopCV job listings page...");
-            //    await page.GoToAsync(urlToScrape, new NavigationOptions { Timeout = 60000, WaitUntil = new[] { WaitUntilNavigation.Networkidle2 } });
-            //    await Task.Delay(5000);
-
-            //    LogMessage($"Current URL: {page.Url}");
-
-            //    List<string> allJobDetailLinks = new List<string>();
-
-            //    string jobItemContainerSelector = ".grid.grid-cols-1.gap-y-2.lg\\:gap-y-2\\.5";
-            //    string fullLinkSelector = jobItemContainerSelector + " a";
-            //    LogMessage($"Waiting for job listing container '{jobItemContainerSelector}' to appear...");
-            //    try
-            //    {
-
-            //        await page.WaitForSelectorAsync(jobItemContainerSelector, new WaitForSelectorOptions { Timeout = 15000 });
-            //        LogMessage("Job listing container found. Starting link collection.");
-            //        var linkElementHandles = await page.QuerySelectorAllAsync(fullLinkSelector);
-            //        if (jobItemContainerSelector.Any())
-            //        {
-            //            foreach (var linkHandle in linkElementHandles)
-            //            {
-            //                var hrefProperty = await linkHandle.GetPropertyAsync("href");
-            //                string? hrefValue = await hrefProperty.JsonValueAsync<string>();
-            //                if (!string.IsNullOrEmpty(hrefValue) && Uri.IsWellFormedUriString(hrefValue, UriKind.Absolute))
-            //                {
-            //                    allJobDetailLinks.Add(hrefValue);
-            //                }
-            //            }
-            //        }
-            //        LogMessage($"Total job detail links collected: {allJobDetailLinks.Count}");
-            //        await page.ScreenshotAsync("screenshot_job_listing_page.png");
-            //        LogMessage("Screenshot of listing page saved.");
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        LogMessage($"Error collecting links from the listing page: {ex.Message}");
-            //        LogMessage($"Current URL during error: {page.Url}");
-            //    }
-
-            //    LogMessage("\n--- Navigating to individual job detail links and printing HTML ---");
-            //    int visitedLinkCounter = 0;
-            //    foreach (string detailLink in allJobDetailLinks.Distinct().Take(20))
-            //    {
-            //        visitedLinkCounter++;
-            //        LogMessage($"\nAccessing Link #{visitedLinkCounter}: {detailLink}");
-            //        using (var detailPage = await browserInstance.NewPageAsync())
-            //        {
-            //            try
-            //            {
-            //                await detailPage.GoToAsync(detailLink, new NavigationOptions { WaitUntil = new[] { WaitUntilNavigation.Networkidle2, WaitUntilNavigation.DOMContentLoaded }, Timeout = 60000 });
-            //                LogMessage($"  Navigated to: {detailPage.Url}");
-
-            //                await Task.Delay(4000);
-            //                LogMessage($"  Waiting for {4000 / 1000.0} seconds...");
-
-            //                var extractedSections = new Dictionary<string, string>();
-            //                string mongoConnectionString = "mongodb+srv://lumconon0911:SWD-SWD@cluster.slolqwf.mongodb.net/";
-            //                string mongoDatabaseName = "JobScraperTopCV";
-            //                string mongoCollectionName = "JobPostingTopCV";
-            //                var mongoService = new MongoDbService(mongoConnectionString, mongoDatabaseName, mongoCollectionName);
-
-            //                var jobValue = await detailPage.QuerySelectorAsync("#__next > div:nth-child(1) > main > div > div.mb-5.relative > div > div > div > div.flex.sm_cv\\:flex-col.mt-4.sm_cv\\:mt-\\[12px\\].mb-8.sm_cv\\:mb-\\[12px\\].gap-10.sm_cv\\:gap-\\[12px\\].md\\:flex-wrap > div.flex.gap-10 > div:nth-child(1) > h2 > p.font-semibold.text-14.text-\\[\\#8B5CF6\\]");
-            //                if (jobValue != null)
-            //                {
-            //                    string jobValueText = await jobValue.EvaluateFunctionAsync<string>("el => el.innerText");
-            //                    extractedSections["Tien Luong"] = jobValueText.Trim();
-            //                    LogMessage($"  Job Value: {jobValueText}");
-            //                }
-            //                else
-            //                {
-            //                    LogMessage("  Job Value section not found.");
-            //                }
-            //                var jobTitle = await detailPage.QuerySelectorAsync("#__next > div:nth-child(1) > main > div > div.mb-5.relative > div > div > div > h1");
-            //                if (jobTitle != null)
-            //                {
-            //                    string jobTitleText = await jobTitle.EvaluateFunctionAsync<string>("el => el.innerText");
-            //                    extractedSections["Tittle"] = jobTitleText.Trim();
-            //                    LogMessage($"  Job Value: {jobTitleText}");
-            //                }
-            //                else
-            //                {
-            //                    LogMessage("  Job Title section not found.");
-            //                }
-
-            //                var jobDescriptionElement = await detailPage.QuerySelectorAsync("#__next > div:nth-child(1) > main > div > div.flex.flex-col.lg\\:flex-row > div.w-full.lg\\:w-3\\/4.pb-4 > div.jsx-5b2773f86d2f74b.px-4.md\\:px-10.py-4.bg-white.shadow-sd-12.rounded-sm > div:nth-child(3)");
-
-
-            //                var sectionTitle = await jobDescriptionElement.QuerySelectorAsync("#__next > div:nth-child(1) > main > div > div.flex.flex-col.lg\\:flex-row > div.w-full.lg\\:w-3\\/4.pb-4 > div.jsx-5b2773f86d2f74b.px-4.md\\:px-10.py-4.bg-white.shadow-sd-12.rounded-sm > div:nth-child(3) > h2");
-            //                var sectionContent = await jobDescriptionElement.QuerySelectorAsync("#__next > div:nth-child(1) > main > div > div.flex.flex-col.lg\\:flex-row > div.w-full.lg\\:w-3\\/4.pb-4 > div.jsx-5b2773f86d2f74b.px-4.md\\:px-10.py-4.bg-white.shadow-sd-12.rounded-sm > div:nth-child(3) > div");
-            //                if (sectionTitle != null && sectionContent != null)
-            //                {
-            //                    string titleText = await sectionTitle.EvaluateFunctionAsync<string>("el => el.innerText");
-            //                    string sectionContentText = await sectionContent.EvaluateFunctionAsync<string>("el => el.innerText");
-            //                    extractedSections[titleText.Trim()] = sectionContentText.Trim();
-            //                    LogMessage($"  Title Section: {titleText}");
-            //                    LogMessage($"  Content Section: {sectionContentText}");
-            //                }
-
-
-
-            //                var sectionRequiement = await detailPage.QuerySelectorAsync("#__next > div:nth-child(1) > main > div > div.flex.flex-col.lg\\:flex-row > div.w-full.lg\\:w-3\\/4.pb-4 > div.jsx-5b2773f86d2f74b.px-4.md\\:px-10.py-4.bg-white.shadow-sd-12.rounded-sm > div.jsx-5b2773f86d2f74b.mb-4.md\\:mb-8 > div");
-            //                if (sectionRequiement != null)
-            //                {
-            //                    string sectionRequiementText = await sectionRequiement.EvaluateFunctionAsync<string>("el => el.innerText");
-            //                    extractedSections["Yêu cầu công việc"] = sectionRequiementText.Trim();
-            //                    LogMessage($"  Yêu cầu công việc: {sectionRequiementText}");
-            //                }
-
-
-            //                var sectionBenefitContent = await detailPage.QuerySelectorAsync("#__next > div:nth-child(1) > main > div > div.flex.flex-col.lg\\:flex-row > div.w-full.lg\\:w-3\\/4.pb-4 > div.jsx-5b2773f86d2f74b.px-4.md\\:px-10.py-4.bg-white.shadow-sd-12.rounded-sm > div:nth-child(5) > div");
-            //                if (sectionBenefitContent != null)
-            //                {
-            //                    string sectionBenefitContentText = await sectionBenefitContent.EvaluateFunctionAsync<string>("el => el.innerText");
-            //                    extractedSections["Quyền lợi"] = sectionBenefitContentText.Trim();
-            //                    LogMessage($"  Content Section: {sectionBenefitContentText}");
-            //                }
-
-
-            //                var sectionAddressContent = await detailPage.QuerySelectorAsync("#__next > div:nth-child(1) > main > div > div.flex.flex-col.lg\\:flex-row > div.w-full.lg\\:w-3\\/4.pb-4 > div.jsx-5b2773f86d2f74b.px-4.md\\:px-10.py-4.bg-white.shadow-sd-12.rounded-sm > div:nth-child(6) > div");
-
-            //                if (sectionAddressContent != null)
-            //                {
-            //                    string sectionAddressContentText = await sectionAddressContent.EvaluateFunctionAsync<string>("el => el.innerText");
-            //                    extractedSections["Địa điểm làm việc"] = sectionAddressContentText.Trim();
-            //                    LogMessage($"  Content Section: {sectionAddressContentText}");
-            //                }
-
-
-
-            //                if (sectionTitle != null && sectionContent != null)
-            //                {
-            //                    string titleText = await sectionTitle.EvaluateFunctionAsync<string>("el => el.innerText");
-            //                    string sectionContentText = await sectionContent.EvaluateFunctionAsync<string>("el => el.innerText");
-            //                    extractedSections[titleText.Trim()] = sectionContentText.Trim();
-            //                    LogMessage($"  Title Section: {titleText}");
-            //                    LogMessage($"  Content Section: {sectionContentText}");
-            //                }
-
-
-
-            //                LogMessage($"\n--- Chi tiết công việc đã trích xuất từ {detailLink} ---");
-            //                foreach (var entry in extractedSections)
-            //                {
-            //                    LogMessage($"\nPhần: {entry.Key}");
-            //                    LogMessage($"Nội dung: {entry.Value}");
-            //                }
-            //                LogMessage($"--- Kết thúc chi tiết công việc từ {detailLink} ---");
-
-            //                //Save to MongoDB
-            //                if (extractedSections.Any())
-            //                {
-            //                    await mongoService.SaveJobDetailsAsync(detailLink, extractedSections);
-            //                }
-            //                else
-            //                {
-            //                    LogMessage($"  Không có dữ liệu trích xuất để lưu cho URL: {detailLink}");
-            //                }
-
-            //            }
-            //            catch (Exception detailEx)
-            //            {
-            //                LogMessage($"  Error accessing detail link {detailLink}: {detailEx.Message}");
-            //                LogMessage($"  Current URL after error: {detailPage.Url}");
-            //            }
-
-            //        }
-
-            //    }
-            //}
-
             using (var page = await browserInstance.NewPageAsync())
             {
                 LogMessage("Navigating to TopCV job listings page...");
@@ -671,26 +499,21 @@ namespace Microservices
 
                 List<string> allJobDetailLinks = new List<string>();
 
+                string jobItemContainerSelector = ".grid.grid-cols-1.gap-y-2.lg\\:gap-y-2\\.5";
+                string fullLinkSelector = jobItemContainerSelector + " a";
+                LogMessage($"Waiting for job listing container '{jobItemContainerSelector}' to appear...");
                 try
                 {
-                    string jobItemContainerSelector = ".avatar";
-                    LogMessage($"Waiting for job listing container '{jobItemContainerSelector}' to appear...");
+
                     await page.WaitForSelectorAsync(jobItemContainerSelector, new WaitForSelectorOptions { Timeout = 15000 });
                     LogMessage("Job listing container found. Starting link collection.");
-
-                    var allJobItemElements = await page.QuerySelectorAllAsync(jobItemContainerSelector);
-                    LogMessage($"Found {allJobItemElements.Length} job blocks on the listing page.");
-
-                    foreach (var jobElementHandle in allJobItemElements)
+                    var linkElementHandles = await page.QuerySelectorAllAsync(fullLinkSelector);
+                    if (jobItemContainerSelector.Any())
                     {
-                        string specificLinkSelectorInsideJob = "a";
-                        var linkHandles = await jobElementHandle.QuerySelectorAllAsync(specificLinkSelectorInsideJob);
-
-                        foreach (var linkHandle in linkHandles)
+                        foreach (var linkHandle in linkElementHandles)
                         {
                             var hrefProperty = await linkHandle.GetPropertyAsync("href");
-                            string hrefValue = await hrefProperty.JsonValueAsync<string>();
-
+                            string? hrefValue = await hrefProperty.JsonValueAsync<string>();
                             if (!string.IsNullOrEmpty(hrefValue) && Uri.IsWellFormedUriString(hrefValue, UriKind.Absolute))
                             {
                                 allJobDetailLinks.Add(hrefValue);
@@ -709,11 +532,10 @@ namespace Microservices
 
                 LogMessage("\n--- Navigating to individual job detail links and printing HTML ---");
                 int visitedLinkCounter = 0;
-                foreach (string detailLink in allJobDetailLinks.Distinct())
+                foreach (string detailLink in allJobDetailLinks.Distinct().Take(20))
                 {
                     visitedLinkCounter++;
                     LogMessage($"\nAccessing Link #{visitedLinkCounter}: {detailLink}");
-
                     using (var detailPage = await browserInstance.NewPageAsync())
                     {
                         try
@@ -721,27 +543,16 @@ namespace Microservices
                             await detailPage.GoToAsync(detailLink, new NavigationOptions { WaitUntil = new[] { WaitUntilNavigation.Networkidle2, WaitUntilNavigation.DOMContentLoaded }, Timeout = 60000 });
                             LogMessage($"  Navigated to: {detailPage.Url}");
 
-                            int delayMilliseconds = new Random().Next(3000, 7001);
-                            LogMessage($"  Waiting for {delayMilliseconds / 1000.0} seconds...");
-                            await Task.Delay(delayMilliseconds);
+                            await Task.Delay(4000);
+                            LogMessage($"  Waiting for {4000 / 1000.0} seconds...");
 
-                            string detailPageContentSelector = ".job-detail";
-                            try
-                            {
-                                await detailPage.WaitForSelectorAsync(detailPageContentSelector, new WaitForSelectorOptions { Timeout = 10000 });
-                                LogMessage("  Detail page content loaded.");
-                            }
-                            catch
-                            {
-                                LogMessage($"  Could not find selector '{detailPageContentSelector}' on the detail page. Page might not have loaded fully or been blocked.");
-                            }
                             var extractedSections = new Dictionary<string, string>();
                             string mongoConnectionString = "mongodb+srv://lumconon0911:SWD-SWD@cluster.slolqwf.mongodb.net/";
                             string mongoDatabaseName = "JobScraperTopCV";
                             string mongoCollectionName = "JobPostingTopCV";
                             var mongoService = new MongoDbService(mongoConnectionString, mongoDatabaseName, mongoCollectionName);
 
-                            var jobValue = await detailPage.QuerySelectorAsync(".job-detail__info--section-content-value");
+                            var jobValue = await detailPage.QuerySelectorAsync("#__next > div:nth-child(1) > main > div > div.mb-5.relative > div > div > div > div.flex.sm_cv\\:flex-col.mt-4.sm_cv\\:mt-\\[12px\\].mb-8.sm_cv\\:mb-\\[12px\\].gap-10.sm_cv\\:gap-\\[12px\\].md\\:flex-wrap > div.flex.gap-10 > div:nth-child(1) > h2 > p.font-semibold.text-14.text-\\[\\#8B5CF6\\]");
                             if (jobValue != null)
                             {
                                 string jobValueText = await jobValue.EvaluateFunctionAsync<string>("el => el.innerText");
@@ -752,68 +563,257 @@ namespace Microservices
                             {
                                 LogMessage("  Job Value section not found.");
                             }
-                            var jobTitle = await detailPage.QuerySelectorAsync(".job-detail__info--title");
+                            var jobTitle = await detailPage.QuerySelectorAsync("#__next > div:nth-child(1) > main > div > div.mb-5.relative > div > div > div > h1");
                             if (jobTitle != null)
                             {
                                 string jobTitleText = await jobTitle.EvaluateFunctionAsync<string>("el => el.innerText");
                                 extractedSections["Tittle"] = jobTitleText.Trim();
-
+                                LogMessage($"  Job Value: {jobTitleText}");
                             }
                             else
                             {
                                 LogMessage("  Job Title section not found.");
                             }
 
-                            var jobDescriptionElement = await detailPage.QuerySelectorAllAsync(".job-description__item");
-                            if (jobDescriptionElement.Any())
+                            var jobDescriptionElement = await detailPage.QuerySelectorAsync("#__next > div:nth-child(1) > main > div > div.flex.flex-col.lg\\:flex-row > div.w-full.lg\\:w-3\\/4.pb-4 > div.jsx-5b2773f86d2f74b.px-4.md\\:px-10.py-4.bg-white.shadow-sd-12.rounded-sm > div:nth-child(3)");
+
+
+                            var sectionTitle = await jobDescriptionElement.QuerySelectorAsync("#__next > div:nth-child(1) > main > div > div.flex.flex-col.lg\\:flex-row > div.w-full.lg\\:w-3\\/4.pb-4 > div.jsx-5b2773f86d2f74b.px-4.md\\:px-10.py-4.bg-white.shadow-sd-12.rounded-sm > div:nth-child(3) > h2");
+                            var sectionContent = await jobDescriptionElement.QuerySelectorAsync("#__next > div:nth-child(1) > main > div > div.flex.flex-col.lg\\:flex-row > div.w-full.lg\\:w-3\\/4.pb-4 > div.jsx-5b2773f86d2f74b.px-4.md\\:px-10.py-4.bg-white.shadow-sd-12.rounded-sm > div:nth-child(3) > div");
+                            if (sectionTitle != null && sectionContent != null)
                             {
-                                for (int i = 0; i <= Math.Min(jobDescriptionElement.Length, 3); i++)
-                                {
+                                string titleText = await sectionTitle.EvaluateFunctionAsync<string>("el => el.innerText");
+                                string sectionContentText = await sectionContent.EvaluateFunctionAsync<string>("el => el.innerText");
+                                extractedSections[titleText.Trim()] = sectionContentText.Trim();
+                                LogMessage($"  Title Section: {titleText}");
+                                LogMessage($"  Content Section: {sectionContentText}");
+                            }
 
-                                    var currentItemHandle = jobDescriptionElement[i];
 
-                                    var sectionTitle = await currentItemHandle.QuerySelectorAsync("h3");
-                                    var sectionContent = await currentItemHandle.QuerySelectorAsync(".job-description__item--content");
-                                    if (sectionTitle != null && sectionContent != null)
-                                    {
-                                        string titleText = await sectionTitle.EvaluateFunctionAsync<string>("el => el.innerText");
-                                        string sectionContentText = await sectionContent.EvaluateFunctionAsync<string>("el => el.innerText");
-                                        extractedSections[titleText.Trim()] = sectionContentText.Trim();
-                                        LogMessage($"  Title Section: {titleText}");
-                                        LogMessage($"  Content Section: {sectionContentText}");
-                                    }
-                                }
-                                LogMessage($"\n--- Chi tiết công việc đã trích xuất từ {detailLink} ---");
-                                foreach (var entry in extractedSections)
-                                {
-                                    LogMessage($"\nPhần: {entry.Key}");
-                                    LogMessage($"Nội dung: {entry.Value}");
-                                }
-                                LogMessage($"--- Kết thúc chi tiết công việc từ {detailLink} ---");
 
-                                //Save to MongoDB
-                                if (extractedSections.Any())
-                                {
-                                    await mongoService.SaveJobDetailsAsync(detailLink, extractedSections);
-                                }
-                                else
-                                {
-                                    LogMessage($"  Không có dữ liệu trích xuất để lưu cho URL: {detailLink}");
-                                }
+                            var sectionRequiement = await detailPage.QuerySelectorAsync("#__next > div:nth-child(1) > main > div > div.flex.flex-col.lg\\:flex-row > div.w-full.lg\\:w-3\\/4.pb-4 > div.jsx-5b2773f86d2f74b.px-4.md\\:px-10.py-4.bg-white.shadow-sd-12.rounded-sm > div.jsx-5b2773f86d2f74b.mb-4.md\\:mb-8 > div");
+                            if (sectionRequiement != null)
+                            {
+                                string sectionRequiementText = await sectionRequiement.EvaluateFunctionAsync<string>("el => el.innerText");
+                                extractedSections["Yêu cầu công việc"] = sectionRequiementText.Trim();
+                                LogMessage($"  Yêu cầu công việc: {sectionRequiementText}");
+                            }
+
+
+                            var sectionBenefitContent = await detailPage.QuerySelectorAsync("#__next > div:nth-child(1) > main > div > div.flex.flex-col.lg\\:flex-row > div.w-full.lg\\:w-3\\/4.pb-4 > div.jsx-5b2773f86d2f74b.px-4.md\\:px-10.py-4.bg-white.shadow-sd-12.rounded-sm > div:nth-child(5) > div");
+                            if (sectionBenefitContent != null)
+                            {
+                                string sectionBenefitContentText = await sectionBenefitContent.EvaluateFunctionAsync<string>("el => el.innerText");
+                                extractedSections["Quyền lợi"] = sectionBenefitContentText.Trim();
+                                LogMessage($"  Content Section: {sectionBenefitContentText}");
+                            }
+
+
+                            var sectionAddressContent = await detailPage.QuerySelectorAsync("#__next > div:nth-child(1) > main > div > div.flex.flex-col.lg\\:flex-row > div.w-full.lg\\:w-3\\/4.pb-4 > div.jsx-5b2773f86d2f74b.px-4.md\\:px-10.py-4.bg-white.shadow-sd-12.rounded-sm > div:nth-child(6) > div");
+
+                            if (sectionAddressContent != null)
+                            {
+                                string sectionAddressContentText = await sectionAddressContent.EvaluateFunctionAsync<string>("el => el.innerText");
+                                extractedSections["Địa điểm làm việc"] = sectionAddressContentText.Trim();
+                                LogMessage($"  Content Section: {sectionAddressContentText}");
+                            }
+
+
+
+                            if (sectionTitle != null && sectionContent != null)
+                            {
+                                string titleText = await sectionTitle.EvaluateFunctionAsync<string>("el => el.innerText");
+                                string sectionContentText = await sectionContent.EvaluateFunctionAsync<string>("el => el.innerText");
+                                extractedSections[titleText.Trim()] = sectionContentText.Trim();
+                                LogMessage($"  Title Section: {titleText}");
+                                LogMessage($"  Content Section: {sectionContentText}");
+                            }
+
+
+
+                            LogMessage($"\n--- Chi tiết công việc đã trích xuất từ {detailLink} ---");
+                            foreach (var entry in extractedSections)
+                            {
+                                LogMessage($"\nPhần: {entry.Key}");
+                                LogMessage($"Nội dung: {entry.Value}");
+                            }
+                            LogMessage($"--- Kết thúc chi tiết công việc từ {detailLink} ---");
+
+                            //Save to MongoDB
+                            if (extractedSections.Any())
+                            {
+                                await mongoService.SaveJobDetailsAsync(detailLink, extractedSections);
                             }
                             else
                             {
-                                LogMessage($"  Không tìm thấy phần tử '.job-description__item' nào trên trang {detailLink}.");
+                                LogMessage($"  Không có dữ liệu trích xuất để lưu cho URL: {detailLink}");
                             }
+
                         }
                         catch (Exception detailEx)
                         {
                             LogMessage($"  Error accessing detail link {detailLink}: {detailEx.Message}");
                             LogMessage($"  Current URL after error: {detailPage.Url}");
                         }
+
                     }
+
                 }
             }
+
+            //using (var page = await browserInstance.NewPageAsync())
+            //{
+            //    LogMessage("Navigating to TopCV job listings page...");
+            //    await page.GoToAsync(urlToScrape, new NavigationOptions { Timeout = 60000, WaitUntil = new[] { WaitUntilNavigation.Networkidle2 } });
+            //    await Task.Delay(5000);
+
+            //    LogMessage($"Current URL: {page.Url}");
+
+            //    List<string> allJobDetailLinks = new List<string>();
+
+            //    try
+            //    {
+            //        string jobItemContainerSelector = ".avatar";
+            //        LogMessage($"Waiting for job listing container '{jobItemContainerSelector}' to appear...");
+            //        await page.WaitForSelectorAsync(jobItemContainerSelector, new WaitForSelectorOptions { Timeout = 15000 });
+            //        LogMessage("Job listing container found. Starting link collection.");
+
+            //        var allJobItemElements = await page.QuerySelectorAllAsync(jobItemContainerSelector);
+            //        LogMessage($"Found {allJobItemElements.Length} job blocks on the listing page.");
+
+            //        foreach (var jobElementHandle in allJobItemElements)
+            //        {
+            //            string specificLinkSelectorInsideJob = "a";
+            //            var linkHandles = await jobElementHandle.QuerySelectorAllAsync(specificLinkSelectorInsideJob);
+
+            //            foreach (var linkHandle in linkHandles)
+            //            {
+            //                var hrefProperty = await linkHandle.GetPropertyAsync("href");
+            //                string hrefValue = await hrefProperty.JsonValueAsync<string>();
+
+            //                if (!string.IsNullOrEmpty(hrefValue) && Uri.IsWellFormedUriString(hrefValue, UriKind.Absolute))
+            //                {
+            //                    allJobDetailLinks.Add(hrefValue);
+            //                }
+            //            }
+            //        }
+            //        LogMessage($"Total job detail links collected: {allJobDetailLinks.Count}");
+            //        await page.ScreenshotAsync("screenshot_job_listing_page.png");
+            //        LogMessage("Screenshot of listing page saved.");
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        LogMessage($"Error collecting links from the listing page: {ex.Message}");
+            //        LogMessage($"Current URL during error: {page.Url}");
+            //    }
+
+            //    LogMessage("\n--- Navigating to individual job detail links and printing HTML ---");
+            //    int visitedLinkCounter = 0;
+            //    foreach (string detailLink in allJobDetailLinks.Distinct())
+            //    {
+            //        visitedLinkCounter++;
+            //        LogMessage($"\nAccessing Link #{visitedLinkCounter}: {detailLink}");
+
+            //        using (var detailPage = await browserInstance.NewPageAsync())
+            //        {
+            //            try
+            //            {
+            //                await detailPage.GoToAsync(detailLink, new NavigationOptions { WaitUntil = new[] { WaitUntilNavigation.Networkidle2, WaitUntilNavigation.DOMContentLoaded }, Timeout = 60000 });
+            //                LogMessage($"  Navigated to: {detailPage.Url}");
+
+            //                int delayMilliseconds = new Random().Next(3000, 7001);
+            //                LogMessage($"  Waiting for {delayMilliseconds / 1000.0} seconds...");
+            //                await Task.Delay(delayMilliseconds);
+
+            //                string detailPageContentSelector = ".job-detail";
+            //                try
+            //                {
+            //                    await detailPage.WaitForSelectorAsync(detailPageContentSelector, new WaitForSelectorOptions { Timeout = 10000 });
+            //                    LogMessage("  Detail page content loaded.");
+            //                }
+            //                catch
+            //                {
+            //                    LogMessage($"  Could not find selector '{detailPageContentSelector}' on the detail page. Page might not have loaded fully or been blocked.");
+            //                }
+            //                var extractedSections = new Dictionary<string, string>();
+            //                string mongoConnectionString = "mongodb+srv://lumconon0911:SWD-SWD@cluster.slolqwf.mongodb.net/";
+            //                string mongoDatabaseName = "JobScraperTopCV";
+            //                string mongoCollectionName = "JobPostingTopCV";
+            //                var mongoService = new MongoDbService(mongoConnectionString, mongoDatabaseName, mongoCollectionName);
+
+            //                var jobValue = await detailPage.QuerySelectorAsync(".job-detail__info--section-content-value");
+            //                if (jobValue != null)
+            //                {
+            //                    string jobValueText = await jobValue.EvaluateFunctionAsync<string>("el => el.innerText");
+            //                    extractedSections["Tien Luong"] = jobValueText.Trim();
+            //                    LogMessage($"  Job Value: {jobValueText}");
+            //                }
+            //                else
+            //                {
+            //                    LogMessage("  Job Value section not found.");
+            //                }
+            //                var jobTitle = await detailPage.QuerySelectorAsync(".job-detail__info--title");
+            //                if (jobTitle != null)
+            //                {
+            //                    string jobTitleText = await jobTitle.EvaluateFunctionAsync<string>("el => el.innerText");
+            //                    extractedSections["Tittle"] = jobTitleText.Trim();
+
+            //                }
+            //                else
+            //                {
+            //                    LogMessage("  Job Title section not found.");
+            //                }
+
+            //                var jobDescriptionElement = await detailPage.QuerySelectorAllAsync(".job-description__item");
+            //                if (jobDescriptionElement.Any())
+            //                {
+            //                    for (int i = 0; i <= Math.Min(jobDescriptionElement.Length, 3); i++)
+            //                    {
+
+            //                        var currentItemHandle = jobDescriptionElement[i];
+
+            //                        var sectionTitle = await currentItemHandle.QuerySelectorAsync("h3");
+            //                        var sectionContent = await currentItemHandle.QuerySelectorAsync(".job-description__item--content");
+            //                        if (sectionTitle != null && sectionContent != null)
+            //                        {
+            //                            string titleText = await sectionTitle.EvaluateFunctionAsync<string>("el => el.innerText");
+            //                            string sectionContentText = await sectionContent.EvaluateFunctionAsync<string>("el => el.innerText");
+            //                            extractedSections[titleText.Trim()] = sectionContentText.Trim();
+            //                            LogMessage($"  Title Section: {titleText}");
+            //                            LogMessage($"  Content Section: {sectionContentText}");
+            //                        }
+            //                    }
+            //                    LogMessage($"\n--- Chi tiết công việc đã trích xuất từ {detailLink} ---");
+            //                    foreach (var entry in extractedSections)
+            //                    {
+            //                        LogMessage($"\nPhần: {entry.Key}");
+            //                        LogMessage($"Nội dung: {entry.Value}");
+            //                    }
+            //                    LogMessage($"--- Kết thúc chi tiết công việc từ {detailLink} ---");
+
+            //                    //Save to MongoDB
+            //                    if (extractedSections.Any())
+            //                    {
+            //                        await mongoService.SaveJobDetailsAsync(detailLink, extractedSections);
+            //                    }
+            //                    else
+            //                    {
+            //                        LogMessage($"  Không có dữ liệu trích xuất để lưu cho URL: {detailLink}");
+            //                    }
+            //                }
+            //                else
+            //                {
+            //                    LogMessage($"  Không tìm thấy phần tử '.job-description__item' nào trên trang {detailLink}.");
+            //                }
+            //            }
+            //            catch (Exception detailEx)
+            //            {
+            //                LogMessage($"  Error accessing detail link {detailLink}: {detailEx.Message}");
+            //                LogMessage($"  Current URL after error: {detailPage.Url}");
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         private void LogMessage(string message)
@@ -1164,6 +1164,13 @@ namespace Microservices
         {
             base.OnClosed(e);
             _httpClient.Dispose();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CrawlingTopcvWindow crawlingTopcvWindow = new CrawlingTopcvWindow();
+            crawlingTopcvWindow.Show();
+            this.Close();
         }
     }
 }
